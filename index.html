@@ -1,0 +1,74 @@
+<!doctype html>
+<html>
+  <head>
+    <title>VO Countdown</title>
+    <style>
+      @import url("https://fonts.googleapis.com/css?family=Inconsolata:400,700|Righteous|Lato|Roboto|Oswald");
+
+      html, body {
+        margin: 0;
+        padding: 0;
+        background: transparent;
+      }
+
+      span {
+        font-family: Roboto;
+        text-shadow:
+         -2px -2px 0 #000,  
+          2px -2px 0 #000,
+          -2px 2px 0 #000,
+           2px 2px 0 #000;
+        font-size: 200px;
+        font-weight: bold;
+      }
+    </style>
+  </head>
+
+<body>
+  <span id="time">0</span>
+</body>
+  
+  
+  <script>
+      window.onload = function () {
+        if(getUrlVars()['time']){
+        var paramTime = getUrlVars()['time'] * 60,
+            display = document.querySelector('#time');
+            display.style.color = "#" + getUrlVars()['color'];
+        } else {
+        var paramTime = 5 * 60,
+            display = document.querySelector('#time');
+            display.style.color = "#" + getUrlVars()['color'];
+        }
+        startTimer(paramTime, display);
+    };
+
+
+    function startTimer(duration, display) {
+        var timer = duration, minutes, seconds;
+        setInterval(function () {
+            minutes = parseInt(timer / 60, 10)
+            seconds = parseInt(timer % 60, 10);
+
+            minutes = minutes < 10 ? "0" + minutes : minutes;
+            seconds = seconds < 10 ? "0" + seconds : seconds;
+
+            display.textContent = minutes + ":" + seconds;
+
+            if (--timer < 0) {
+                timer = duration;
+            }
+        }, 1000);
+    }
+
+    function getUrlVars() {
+        var vars = {};
+        var parts = window.location.href.replace(/[?&]+([^=&]+)=([^&]*)/gi, function(m,key,value) {
+            vars[key] = value;
+            console.log(value);
+        });
+        return vars;
+    }
+
+  </script>
+</html>
