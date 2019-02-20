@@ -1,11 +1,152 @@
 <!doctype html>
 
 <html>
-  <head></head>
+  <head>
+    <title>VO Stream</title>
+    <style type="text/css">
+      @import url('https://fonts.googleapis.com/css?family=Merriweather');
+
+
+      html,
+      *,
+      *:before,
+      *:after {
+        height: 100vh;\
+        background: transparent;
+      }
+
+      div {
+        font-family: Merriweather;
+        font-weight: bold;
+      }
+
+      .wrapper {
+        background-image: url('https://raw.githubusercontent.com/vooblyofficial/timer/master/tech-tree-parchment-drop-down-background.png');
+        position: relative;
+        height: 200px;
+        width: 600px;
+        box-shadow: 0 40px 25px -20px rgba(0,0,0,0.7);
+        border-radius: 15px;
+        top: 50%;
+        left: 50%;
+        transform: translate3d(-50%, -50%, 0);
+      }
+
+      #logo {
+        position: absolute;
+        border-radius: 5px;
+        border-left: 5px solid #ccc;
+        border-top: 5px solid #ccc;
+        border-right: 5px solid;
+        border-bottom: 5px solid;
+        height: 150px;
+        width: 150px;
+        left: 20px;
+        top: 20px;
+        background-color: #000;
+        background-image: url('https://raw.githubusercontent.com/vooblyofficial/VooblyOfficialApplication/gh-pages/VO_Shield.png');
+        background-size: contain;
+        background-repeat: no-repeat;
+        background-position: center;
+      }
+
+      #title {
+        position: absolute;
+        font-size: 40px;
+        width: 305px;
+        left: 190px;
+        top: 20px;
+        height: auto;
+        word-wrap: break-word;
+        text-shadow: -2px 2px 10px #aaa;
+      }
+
+      #percent {
+        position: absolute;
+        font-size: 40px;
+        left: 490px;
+        top: 20px;
+        text-shadow: -2px 2px 10px #aaa;
+      }
+
+      #progress {
+        position: absolute;
+        width: 350px;
+        border-top: 4px solid #eee;
+        border-left: 4px solid #eee;
+        border-right: 4px solid #000;
+        border-bottom: 4px solid #000;
+        border-radius: 5px;
+        height: 50px;
+        left: 190px;
+        top: 118px;
+        box-shadow: 2px 2px 10px #aaa;
+      }
+
+      #progress-fill {
+        position: absolute;
+        width: 0px;
+        height: 50px;
+        background-color: red;
+        background: linear-gradient(#F44336 60%, #B71C1C);
+      }
+    </style>
   
-  <body>
+  </head>
   
+   <body>
+    <div class="wrapper">
+    <div id="logo"></div>
+    <div id="title">Constructing - Stream</div>
+    <div id="percent">0%</div>
+    <div id="progress">
+      <div id="progress-fill"></div>
+    </div>
   
+  </div>
+  
+     
+     
+     <script>
+     window.onload = function () {
+      if(getUrlVars()['time']){
+      var paramTime = getUrlVars()['time'] * 60,
+          display = document.querySelector('#percent');
+          displaybar = document.querySelector('#progress-fill')
+      } else {
+      var paramTime = 5 * 60,
+          display = document.querySelector('#percent');
+          displaybar = document.querySelector('#progress-fill')
+      }
+      startTimer(paramTime, display, displaybar);
+  };
+
+
+  function startTimer(duration, display, displaybar) {
+      var timer = duration, minutes, seconds;
+      setInterval(function () {
+
+          console.log(350 - Math.floor((timer / duration) * 350));
+
+          display.textContent = Math.floor(100 - (timer / duration) * 100) + "%";
+          //document.getElementById('div_register').style.width='500px';
+          displaybar.style.width = (350 - Math.floor((timer / duration) * 350)) + "px";
+          if (--timer < 0) {
+              timer = duration;
+          }
+      }, 1000);
+  }
+
+
+  function getUrlVars() {
+      var vars = {};
+      var parts = window.location.href.replace(/[?&]+([^=&]+)=([^&]*)/gi, function(m,key,value) {
+          vars[key] = value;
+          console.log(value);
+      });
+      return vars;
+  }
+     </script>
   </body>
   
 </html>
